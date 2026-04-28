@@ -12,43 +12,32 @@ public class HeureVocale
             "six", "sept", "huit", "neuf", "dix", "onze"
         ];
 
-        int heure = time.Hour;
+        int heureInitiale = time.Hour;
         int minute = time.Minute;
-        string heureTexte = heuresEnLettres[heure];
 
+        // Si la minute dépasse 30, on bascule sur l'heure suivante
+        int heureCible = minute > 30 ? (heureInitiale + 1) % 24 : heureInitiale;
+
+        string heureTexte = heuresEnLettres[heureCible];
+
+        // 1. Détermination de la base de l'heure
         string baseTexte;
-        if (heure == 0)
+        if (heureCible == 0)
         {
             baseTexte = "minuit";
         }
-        else if (heure == 12)
+        else if (heureCible == 12)
         {
             baseTexte = "midi";
         }
         else
         {
-            baseTexte = $"{heureTexte} heures";
+            // Gestion propre du singulier pour "une heure" (1h ou 13h)
+            string pluriel = (heureCible % 12 == 1) ? "" : "s";
+            baseTexte = $"{heureTexte} heure{pluriel}";
         }
 
-        string suffixe = "";
-        if (minute == 0 && heure > 0 && heure < 12)
-        {
-            suffixe = " pile";
-        }
-        else if (heure >= 13 && heure < 18)
-        {
-            suffixe = " de l'après-midi";
-        }
-        else if (heure >= 18)
-        {
-            suffixe = " du soir";
-        }
-
-        if (minute == 0)
-        {
-            return baseTexte + suffixe;
-        }
-
+        // 2. Détermination du texte des minutes (inclus les "moins")
         string minuteTexte = minute switch
         {
             5 => " cinq",
@@ -56,10 +45,31 @@ public class HeureVocale
             15 => " et quart",
             20 => " vingt",
             25 => " vingt-cinq",
-            30 => " et demie", 
-            
+            30 => " et demie",
+            35 => " moins vingt-cinq",
+            40 => " moins vingt",
+            45 => " moins le quart",
+            50 => " moins dix",
+            55 => " moins cinq",
+            _ => ""
         };
 
+        // 3. Détermination du suffixe de fin en fonction de l'heure cible
+        string suffixe = "";
+        if (minute == 0 && heureCible > 0 && heureCible < 12)
+        {
+            suffixe = " pile";
+        }
+        else if (heureCible >= 13 && heureCible < 18)
+        {
+            suffixe = " de l'après-midi";
+        }
+        else if (heureCible >= 18)
+        {
+            suffixe = " du soir";
+        }
+
+        // On assemble les trois morceaux
         return baseTexte + minuteTexte + suffixe;
     }
 }
