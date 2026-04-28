@@ -24,4 +24,28 @@ public sealed class TestHeureVocale
 
         Assert.AreEqual("deux heures de l'après-midi", actual);
     }
+
+    [TestMethod]
+    public void TestMidiDix()
+    {
+        HeureVocale heureVocale = new ();
+        var actual = heureVocale.Convertir(DateTime.Parse("12:10"));
+        Assert.AreEqual("midi dix", actual);
+    }
+
+    [TestMethod]
+    public void TestTroisHeuresVingtCinqApresMidi()
+    {
+        HeureVocale heureVocale = new ();
+        var actual = heureVocale.Convertir(DateTime.Parse("15:25"));
+        Assert.AreEqual("trois heures vingt-cinq de l'après-midi", actual);
+    }
+
+    [TestMethod]
+    public void TestMinuitEtQuart()
+    {
+        HeureVocale heureVocale = new ();
+        var actual = heureVocale.Convertir(DateTime.Parse("00:15"));
+        Assert.AreEqual("minuit et quart", actual);
+    }
 }
