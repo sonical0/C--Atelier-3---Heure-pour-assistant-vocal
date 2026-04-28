@@ -1,64 +1,25 @@
 using System;
-using System.Collections.Generic;
 
 class Program
 {
     static void Main()
     {
-        Dictionary<int, string> heuresEnLettres = new Dictionary<int, string>()
-        {
-            {0, "minuit"}, {1, "une"}, {2, "deux"}, {3, "trois"}, {4, "quatre"},
-            {5, "cinq"}, {6, "six"}, {7, "sept"}, {8, "huit"}, {9, "neuf"},
-            {10, "dix"}, {11, "onze"}, {12, "douze"}, {13, "une"}, {14, "deux"},
-            {15, "trois"}, {16, "quatre"}, {17, "cinq"}, {18, "six"}, {19, "sept"},
-            {20, "huit"}, {21, "neuf"}, {22, "dix"}, {23, "onze"}
-        };
+        TraduireHeureMatin("7:00");
+        TraduireHeureMatin("1:00");
+        TraduireHeureMatin("11:00");
+    }
 
-        Console.Write("Ton heure sous format 00h00 : ");
-        string input = Console.ReadLine();
+    static void TraduireHeureMatin(string heureFormat)
+    {
+        string[] lettres = { "", "une", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf", "vingt", "vingt-et-un", "vingt-deux", "vingt-trois", };
 
-        if (!string.IsNullOrEmpty(input) && input.Length >= 2)
-        {
-            string heureString = input.Substring(0, 2);
-            
-            if (int.TryParse(heureString, out int heureAffichee))
-            {
-                string heureTexte = heuresEnLettres.ContainsKey(heureAffichee) 
-                                    ? heuresEnLettres[heureAffichee] 
-                                    : heureAffichee.ToString();
+        string heureTexte = heureFormat.Split(':')[0];
 
-                if (heureAffichee <= 12)
-                {
-                    if (heureAffichee == 0) 
-                    {
-                        Console.WriteLine("Il est minuit.");
-                    }
-                    else if (heureAffichee == 12) 
-                    {
-                        Console.WriteLine("Il est midi.");
-                    }
-                    else 
-                    {
-                        Console.WriteLine($"Il est {heureTexte} heure(s) du matin.");
-                    }
-                }
-                else if (heureAffichee > 12 && heureAffichee < 16)
-                {
-                    Console.WriteLine($"Il est {heureTexte} heure(s) de l'après-midi.");
-                }
-                else
-                {
-                    Console.WriteLine($"Il est {heureTexte} heure(s) du soir.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Erreur : Les deux premiers caractères doivent être des chiffres.");
-            }
-        }
-        else
+        if (int.TryParse(heureTexte, out int heure) && heure >= 1 && heure <= 11)
         {
-            Console.WriteLine("Erreur : Format invalide. Utilise bien le format 00h00.");
+            string marquePluriel = (heure > 1) ? "s" : "";
+
+            Console.WriteLine($"{lettres[heure]} heure{marquePluriel} du matin");
         }
     }
 }
