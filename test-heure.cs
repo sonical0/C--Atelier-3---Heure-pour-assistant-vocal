@@ -38,9 +38,14 @@ else
         momentDeLaJournee = "du matin";
         heureEnLettres = NombreEnLettres(heure) + (heure == 1 ? " heure" : " heures");
     }
-    else
+    else if (heure >= 13 && heure <= 17)
     {
         momentDeLaJournee = "de l'après-midi";
+        heureEnLettres = NombreEnLettres(heure - 12) + ((heure - 12) == 1 ? " heure" : " heures");
+    }
+    else
+    {
+        momentDeLaJournee = "du soir";
         heureEnLettres = NombreEnLettres(heure - 12) + ((heure - 12) == 1 ? " heure" : " heures");
     }
 
