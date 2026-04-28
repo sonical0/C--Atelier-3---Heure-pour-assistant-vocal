@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="HeureVocale/HeureVocale.csproj" />
+  <Project Path="TestHeureVocale/TestHeureVocale.csproj" />
+</Solution>
