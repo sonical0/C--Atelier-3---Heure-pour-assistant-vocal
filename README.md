@@ -8,6 +8,7 @@ Chacun des cas suivant SANS EXCEPTION doit être implémenté avec TDD.
 ## Énoncé
 Concevez en TDD une méthode de classe (static) qui, à partir d'un DateTime, renvoie une chaîne de caractères contenant le texte de l'heure.
 Les étapes recommandées sont :
+
 * Traduire une heure "pile" du matin : ex 7:00 => "sept heures du matin", 1:00 => "une heure du matin"
 
 * Traduire une heure "pile" de l'après-midi : ex 14:00 => "deux heures de l'après-midi"
