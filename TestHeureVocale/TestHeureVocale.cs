@@ -14,4 +14,14 @@ public sealed class TestHeureVocale
 
         Assert.AreEqual("sept heures pile", actual);
     }
+
+    [TestMethod]
+    public void Test7Apresmidi()
+    {
+        HeureVocale heureVocale = new ();
+
+        var actual = heureVocale.Convertir(DateTime.Parse("14:00"));
+
+        Assert.AreEqual("deux heures de l'après-midi", actual);
+    }
 }
